@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 
 # Assuming the Item class is defined in malkhana/models/Item.py
+from malkhana.frames.MiscFuncs import MiscFuncs
 from malkhana.models.Item import Item
 
 
@@ -176,19 +177,13 @@ class ViewItemsFrame(tk.Frame):
         go_back_button.grid(row=1, column=10, pady=5)
 
     def add_item(self):
-        self.clear_content_frame()
-        tk.Label(self.content_frame, text="Add Item",
-                 font=("Helvetica", 20)).pack(pady=20)
+        self.controller.show_frame("AddItemsFrame")
 
     def checkout_item(self):
-        self.clear_content_frame()
-        tk.Label(self.content_frame, text="Checkout Item",
-                 font=("Helvetica", 20)).pack(pady=20)
+        self.controller.show_frame("CheckoutItemFrame")
 
     def checkin_item(self):
-        self.clear_content_frame()
-        tk.Label(self.content_frame, text="Checkin Item",
-                 font=("Helvetica", 20)).pack(pady=20)
+        MiscFuncs.entry_clearer(self)
 
     def search_items(self, search_field, search_entry):
         for item in self.tree.get_children():

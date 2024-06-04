@@ -4,6 +4,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from tkcalendar import DateEntry
 from datetime import datetime
+from malkhana.frames.MiscFuncs import MiscFuncs
 from malkhana.frames.view_items_frame import ViewItemsFrame
 from malkhana.models.Item import Item
 from malkhana.models.Log import Logs
@@ -12,11 +13,13 @@ from malkhana.models.Log import Logs
 class AddItemsFrame(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
+        self.parent = parent
         self.controller = controller
         self.create_widgets()
         self.file_entry = ""
         self.item = Item()
         self.log = Logs()
+        # self.misc = MiscFuncs(self.parent, self.controller)
 
     def create_widgets(self):
         self.sidebar = tk.Frame(self, bg="#2c3e50", width=200)
@@ -169,26 +172,7 @@ class AddItemsFrame(tk.Frame):
         try:
             self.item.insert_item(barcode, fir_no, seized_items, ipc_section, crime_location, crime_date, crime_time, crime_witness,
                                   crime_inspector, "Malkhana", where_kept, description_of_items, entry_time, attachments)
-            self.controller.frames["AddItemsFrame"].barcode_entry.delete(
-                0, tk.END)
-            self.controller.frames["AddItemsFrame"].fir_no_entry.delete(
-                0, tk.END)
-            self.controller.frames["AddItemsFrame"].seized_items_entry.delete(
-                0, tk.END)
-            self.controller.frames["AddItemsFrame"].ipc_section_entry.delete(
-                0, tk.END)
-            self.controller.frames["AddItemsFrame"].crime_location_entry.delete(
-                0, tk.END)
-            self.controller.frames["AddItemsFrame"].crime_witness_entry.delete(
-                0, tk.END)
-            self.controller.frames["AddItemsFrame"].crime_inspector_entry.delete(
-                0, tk.END)
-            self.controller.frames["AddItemsFrame"].where_kept_entry.delete(
-                0, tk.END)
-            self.controller.frames["AddItemsFrame"].description_of_items_entry.delete(
-                0, tk.END)
-            self.controller.frames["AddItemsFrame"].crime_date_entry.delete(
-                0, tk.END)
+            MiscFuncs.entry_clearer(self)
             activity = "Added item barcode no: "+barcode
             messagebox.showinfo(
                 "Successful", "Item Stored Successfully!" + activity)
@@ -205,15 +189,15 @@ class AddItemsFrame(tk.Frame):
 
     def view_item(self):
         self.controller.show_frame("ViewItemsFrame")
-        view = ViewItemsFrame()
+        view = ViewItemsFrame(self.parent, self.controller)
         view.populate_tree()
         pass
 
     def checkout_item(self):
-        pass
+        self.controller.show_frame("CheckoutItemFrame")
 
     def checkin_item(self):
-        pass
+        MiscFuncs.entry_clearer(self)
 
     def go_back(self):
         self.controller.show_frame("MalkhanaFrame")
@@ -222,10 +206,5 @@ class AddItemsFrame(tk.Frame):
         self.controller.show_frame("MainFrame")
 
     def log_out(self):
-        self.controller.frames["LoginFrame"].username_entry.delete(0, tk.END)
-        self.controller.frames["LoginFrame"].password_entry.delete(0, tk.END)
-        self.controller.show_frame("LoginFrame")
 
-    def clear_content_frame(self):
-        for widget in self.content_frame.winfo_children():
-            widget.destroy()
+        self.controller.show_frame("LoginFrame")

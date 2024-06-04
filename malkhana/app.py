@@ -1,9 +1,10 @@
 import tkinter as tk
+from malkhana.frames.MiscFuncs import MiscFuncs
 from malkhana.frames.add_items_frame import AddItemsFrame
 # from malkhana.frames.checkin_court_frame import CheckoutCourtFrame
 # from malkhana.frames.checkin_frame import CheckinItemFrame
 # from malkhana.frames.checkin_fsl_frame import CheckinFSLFrame
-# from malkhana.frames.checkout_frame import CheckoutItemFrame
+from malkhana.frames.checkout_frame import CheckoutItemFrame
 # from malkhana.frames.checkout_fsl_frame import CheckoutFSLFrame
 # from malkhana.frames.court_records_frame import CourtRecordsFrame
 # from malkhana.frames.fsl_records_frame import FSLRecordsFrame
@@ -30,7 +31,7 @@ class Application(tk.Tk):
         container.grid_columnconfigure(0, weight=2)
 
         self.frames = {}
-        for F in (LoginFrame, MainFrame, MalkhanaFrame, AddItemsFrame, ViewItemsFrame):
+        for F in (LoginFrame, MainFrame, MalkhanaFrame, AddItemsFrame, ViewItemsFrame, CheckoutItemFrame, MiscFuncs):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -42,4 +43,5 @@ class Application(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
-# AddItemsFrame, ViewItemsFrame, CheckoutItemFrame, CheckinItemFrame, CheckoutCourtFrame, CheckoutFSLFrame, CheckoutCourtFrame, CheckinFSLFrame, ItemLogsFrame, FSLRecordsFrame, CourtRecordsFrame, MalkhanaFrame, PrintDetailsFrame, MainFrame, LoginFrame
+
+# AddItemsFrame, ViewItemsFrame,  CheckinItemFrame, CheckoutCourtFrame, CheckoutFSLFrame, CheckoutCourtFrame, CheckinFSLFrame, ItemLogsFrame, FSLRecordsFrame, CourtRecordsFrame, MalkhanaFrame, PrintDetailsFrame, MainFrame, LoginFrame

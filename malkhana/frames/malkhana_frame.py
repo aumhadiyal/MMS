@@ -1,9 +1,12 @@
 import tkinter as tk
 
+from malkhana.frames.add_items_frame import AddItemsFrame
+
 
 class MalkhanaFrame(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
+        self.parent = parent
         self.controller = controller
         self.create_widgets()
 
@@ -54,7 +57,3 @@ class MalkhanaFrame(tk.Frame):
         self.controller.frames["LoginFrame"].username_entry.delete(0, tk.END)
         self.controller.frames["LoginFrame"].password_entry.delete(0, tk.END)
         self.controller.show_frame("LoginFrame")
-
-    def clear_content_frame(self):
-        for widget in self.content_frame.winfo_children():
-            widget.destroy()

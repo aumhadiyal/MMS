@@ -9,7 +9,7 @@ class Item:
         self.initialize_db()
 
     def get_db_path(self):
-        return "E:\malkhana_management\malkhana\databases\database.db"
+        return "E:\malkhana_management\MMS\malkhana\databases\database.db"
 
     def initialize_db(self):
         conn = sqlite3.connect(self.db_path)
